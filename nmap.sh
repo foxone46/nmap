@@ -1,23 +1,28 @@
- #!/bin/sh
- 
-echo -e "\e[31mLocal IP\e[0m"
-/sbin/ifconfig -a
-echo -e "\e[31mPublic IP\e[0m"
-dig +short myip.opendns.com @resolver1.opendns.com
+#!/bin/bash
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+COLOR='\e[0m'
+NC='\033[0m' #No color
+RESEAU=$1
 
-echo -e "\e[31mQuick Scan\e[0m"
-echo -e "\e[31mRéseau à scanner\e[0m"
-echo Exemple 192.168.20.255/24
-read MY_NETWORK
-nmap -T4 -F $MY_NETWORK
+#IP PUBLIQUE
+echo -e "${GREEN}Mon IP Publique est :${COLOR}"
+wget http://ipecho.net/plain -O - -q;echo
 
-echo -e "\e[31mIntense Scan\e[0m"
-echo -e "\e[31mIP à scanner\e[0m"
-read MY_IP
-nmap -T4 -A -v $MY_IP
+#RESEAU
+echo -e "${RED}Scan du réseau${COLOR}"
+#read $RESEAU
+scan1(){
+        echo "ma fonction"
+        echo $RESEAU
+        nmap -T4 -F $RESEAU
+}
+scan1
 
-# MODE EXECUTABLE
-# chmod a+rx nmap.sh
-# LANCEMENT
-# ./nmap.sh
-
+#IP
+echo -e "${RED}Quel IP?Exemple 192.168.2.11${COLOR}"
+read $IP
+scan2(){
+nmap -T4 -v $IP
+}
+scan2
