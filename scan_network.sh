@@ -19,5 +19,5 @@ echo -e "${RED}Indiquer réseau avec masque${COLOR}"
 echo -e "${GREEN}Exemple : 192.168.1.0/24 ${COLOR}"
 read -p "Réseau:" RESEAU
 echo $RESEAU
-nmap -v -sn 192.168.100.0/24 | grep -v down | grep Nmap | cut -d "" -f 11
+nmap -v -sn $RESEAU | grep -v down | grep Nmap | cut -d "" -f 11
 nmap -v -sL $RESEAU | grep "local"
